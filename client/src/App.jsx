@@ -1,5 +1,7 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TaskCard from './task-card'
+
 
 const fetcher = url => axios.get(url).then(res => res.data);
 
@@ -7,16 +9,15 @@ function App() {
   const title = 'Kanban Collaboration Board'
   const id = "BUS-1"
   const points =5
+
   return (
-    <div className="border rounded px-2 m-2 bg-base text-black">
-    <div className="display-1 fw-semibold">
-      {title}
-    </div>
-    <div className="display-3 d-flex gap-4 justify-content-between py-2 text-secondary fw-normal">
-      <div>{id}</div>
-      <div>{points}</div>
-    </div>
-    </div>
+    <>
+    <TaskCard title={title} id={id} point={points} />
+    <TaskCard title='Competitor analysis' id='BUS-2' points={3}/>
+    <TaskCard title='Develop Business Strategy' id='BUS-3' points={8}/>
+    <TaskCard title='Develop Marketing Strategy' id='BUS-4' points={5}/>
+
+</>
   )
 }
 
