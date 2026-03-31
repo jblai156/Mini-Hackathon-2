@@ -1,30 +1,26 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TaskCard, { tasks, statuses } from './components/task-card'
+import TaskCard from './task-card'
+
+const fetcher = url => axios.get(url).then(res => res.data);
 
 function App() {
+  const title = 'Kanban Collaboration Board'
+  const id = "BUS-1"
+  const points =5
 
   const todoTasks = tasks.filter((task) => task.status === 'todo')
   const inProgressTasks = tasks.filter((task) => task.status === 'inProgress')
   const doneTasks = tasks.filter((task) => task.status === 'done')
 
   return (
-    <div className="flex container mt-4">
-      <div className="row g-3">
-        <div className="col-md-4">
-            <h1>To do</h1>
-            {todoTasks.map((task) => <TaskCard task={task} />)}
-            </div>
-        <div className="col-md-4">
-          <h1>In Progress</h1>
-          {inProgressTasks.map((task) => <TaskCard task={task} />)}
-        </div>
-        <div className="col-md-4">
-          <h1>Done</h1>
-          {doneTasks.map((task) => <TaskCard task={task} />)}
-        </div>
-      </div>
-    </div>
+    <>
+    <TaskCard title={title} id={id} point={points} />
+    <TaskCard title='Competitor analysis' id='BUS-2' points={3}/>
+    <TaskCard title='Develop Business Strategy' id='BUS-3' points={8}/>
+    <TaskCard title='Develop Marketing Strategy' id='BUS-4' points={5}/>
+
+</>
   )
 }
 
