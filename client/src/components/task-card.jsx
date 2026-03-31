@@ -9,5 +9,31 @@
     </div>
     </div>
   }
-
+  
+export const tasks = [
+  { 
+    title: 'Do Market Research',
+    id: 'BUS-1',
+    status:'todo',
+    points: 5 
+  },
+  { 
+    title: 'Do Market Something',
+    id: 'BUS-2',
+    status:'todo',
+    points: 2 
+  },
+  { 
+    title: 'Do Market Research',
+    id: 'BUS-3',
+    status:'done',
+    points: 8 
+  },
+  { 
+    title: 'Do Market Research',
+    id: 'BUS-4',
+    status:'inProgress',
+    points: 3 
+  },
+  ]
   export default TaskCard
