@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const lowPriorityIcon = (
   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="blue" strokeWidth="3">
     <path d="M5 9l7 7 7-7" />
@@ -15,19 +17,24 @@ const highPriorityIcon = (
   </svg>
 )
 
-const TaskCard = ({task}) => {
-    return <div className="border border-secondary rounded-4 px-2 my-2 bg-light text-black">
+const TaskCard = ({ task, updateTaskPoints}) => {
+  const points = task.points || 0
+  return <div className="border border-secondary rounded-4 px-2 my-2 bg-light text-black">
     <div className="h3 fw-semibold mb-2">
       {task.title}
     </div>
     <div className="h4 d-flex gap-4 justify-content-between py-2 text-secondary fw-normal text-secondary-emphasis">
-      <div className="d-flex gap-2">
+      <div className="d-flex gap-2 align-items-center">
         <div>{task.id}</div>
         {task.priority === 'high' && highPriorityIcon}
         {task.priority === 'medium' && mediumPriorityIcon}
         {task.priority === 'low' && lowPriorityIcon}
       </div>
-      <div>{task.points}</div>
+      <div className="d-flex gap-2">
+        <button className="btn p-0 text-dark" onClick={(e) => updateTaskPoints(task, points - 1)}>-</button>
+        <div className="fw-bold">{points}</div>
+        <button className="btn p-0 text-dark" onClick={(e) => updateTaskPoints(task, points + 1)}>+</button>
+      </div>
     </div>
     </div>
   }
