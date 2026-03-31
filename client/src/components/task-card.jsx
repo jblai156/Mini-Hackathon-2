@@ -1,9 +1,9 @@
   const TaskCard = ({task}) => {
-    return <div className="border border-secondary rounded-5 px-2 m-2 bg-light text-black">
-    <div className="display-1 fw-semibold mb-5">
+    return <div className="border border-secondary rounded-4 px-2 my-2 bg-light text-black">
+    <div className="h3 fw-semibold mb-2">
       {task.title}
     </div>
-    <div className="display-3 d-flex gap-4 justify-content-between py-2 text-secondary fw-normal text-secondary-emphasis">
+    <div className="h4 d-flex gap-4 justify-content-between py-2 text-secondary fw-normal text-secondary-emphasis">
       <div>{task.id}</div>
       <div>{task.points}</div>
     </div>
@@ -39,4 +39,4 @@ export const tasks = [
 
 export const statuses = ['todo', 'inProgress', 'done']
 
-  export default TaskCard
+export default TaskCard
