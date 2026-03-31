@@ -9,10 +9,6 @@ function App() {
   const id = "BUS-1"
   const points =5
 
-  const todoTasks = tasks.filter((task) => task.status === 'todo')
-  const inProgressTasks = tasks.filter((task) => task.status === 'inProgress')
-  const doneTasks = tasks.filter((task) => task.status === 'done')
-
   return (
     <>
     <TaskCard title={title} id={id} point={points} />
