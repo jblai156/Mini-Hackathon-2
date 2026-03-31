@@ -36,4 +36,7 @@ export const tasks = [
     points: 3 
   },
   ]
+
+export const statuses = ['todo', 'inProgress', 'done']
+
   export default TaskCard
