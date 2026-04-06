@@ -17,8 +17,17 @@ const highPriorityIcon = (
   </svg>
 )
 
-const TaskCard = ({ task, updateTaskPoints}) => {
+const TaskCard = ({ task, updateTaskPoints }) => {
   const points = task.points || 0
+  const updatePoints = (direction) => {
+    const fib = [0, 1, 2, 3, 5, 8, 13]
+    const index = fib.indexOf(points)
+    const nextIndex = direction === 'up' ? index + 1 : index - 1
+    const newPoints = fib[nextIndex]
+    if(newPoints !== undefined) {
+      updateTaskPoints(task, newPoints)
+    } 
+  }
   return <div className="border border-secondary rounded-4 px-2 my-2 bg-light text-black">
     <div className="h3 fw-semibold mb-2">
       {task.title}
@@ -30,10 +39,10 @@ const TaskCard = ({ task, updateTaskPoints}) => {
         {task.priority === 'medium' && mediumPriorityIcon}
         {task.priority === 'low' && lowPriorityIcon}
       </div>
-      <div className="d-flex gap-2">
-        <button className="btn p-0 text-dark" onClick={(e) => updateTaskPoints(task, points - 1)}>-</button>
+    <div className="d-flex gap-2">
+        <button className="btn p-0 text-dark" onClick={(e) => updatePoints('down')}>-</button>
         <div className="fw-bold">{points}</div>
-        <button className="btn p-0 text-dark" onClick={(e) => updateTaskPoints(task, points + 1)}>+</button>
+        <button className="btn p-0 text-dark" onClick={(e) => updatePoints('up')}>+</button>
       </div>
     </div>
     </div>
