@@ -25,13 +25,26 @@ function App() {
     setTasks(updatedTasks)
   }
 
+  const handleDrop = (e, status) => {
+    e.preventDefault()
+    const id = e.dataTransfer.getData("id")
+    const task = tasks.find((task) => task.id === id)
+    if(task) {
+      updateTask({...task, status})
+    }
+  }
+  
   return (
   <div className="container-fluid mt-4">
     <div className="row">
       {columns.map((column) => (
-        <div className="col-md-3 border-end">
+      <div
+      onDrop={(e) => handleDrop(e, column.title)}
+      onDragOver={(e) => e.preventDefault()} 
+      className="col-md-3 border-end"
+      >
           <h1 className="d-flex justify-content-between align-items-center mb-3 px-2 fw-bold text-secondary-emphasis">
-            <h1 className="ext-capitalize  m-0">{column.title}</h1>
+            <h1 className="text-capitalize  m-0">{column.title}</h1>
             {column.tasks.reduce((total, task) => total + (task?.points || 0), 0)}
           </h1>
           {column.tasks.map((task) => (

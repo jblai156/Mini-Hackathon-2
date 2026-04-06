@@ -29,7 +29,13 @@ const TaskCard = ({ task, updateTask }) => {
       updateTask({...task, points: newPoints})
     } 
   }
-  return <div className="border border-secondary rounded-4 px-2 my-2 bg-light text-black">
+  return <div
+    draggable
+    onDragStart={(e) =>{
+      e.dataTransfer.setData("id", task.id)
+    }}
+    className="border border-secondary rounded-4 px-2 my-2 bg-light text-black"
+  >
     <div className="h3 fw-semibold mb-2">
       {isEditingTitle ? (
         <input
