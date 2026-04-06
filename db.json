@@ -2,30 +2,58 @@
   "tasks": [
     {
       "id": "BUS-1",
-      "title": "Do Market Research",
-      "status": "done",
-      "priority": "low",
+      "title": "Conduct Competitor Analysis",
+      "status": "backlog",
+      "priority": "medium",
       "points": 5
     },
     {
       "id": "BUS-2",
-      "title": "Do Market Something",
-      "status": "inProgress",
+      "title": "Design Landing Page Mockup",
+      "status": "todo",
       "priority": "high",
-      "points": 2
+      "points": 8
     },
     {
       "id": "BUS-3",
-      "title": "Do Market Research",
-      "status": "backlog",
-      "priority": "low",
+      "title": "Set Up Firebase Database",
+      "status": "inProgress",
+      "priority": "high",
       "points": 13
     },
     {
       "id": "BUS-4",
-      "title": "Do Market Research",
-      "status": "todo",
+      "title": "Write User Stories",
+      "status": "done",
+      "priority": "low",
+      "points": 3
+    },
+    {
+      "id": "BUS-5",
+      "title": "Implement Drag and Drop",
+      "status": "inProgress",
       "priority": "medium",
+      "points": 8
+    },
+    {
+      "id": "BUS-6",
+      "title": "Create Project Presentation Slides",
+      "status": "backlog",
+      "priority": "medium",
+      "points": 5
+    },
+    {
+      "id": "BUS-7",
+      "title": "Test Real-Time Updates",
+      "status": "todo",
+      "priority": "high",
+      "points": 13
+    },
+    {
+      "id": "BUS-8",
+      "title": "Fix UI Styling Issues",
+      "status": "done",
+      "priority": "low",
       "points": 2
     }
   ]
