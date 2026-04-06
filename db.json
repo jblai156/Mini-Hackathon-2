@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "id": "BUS-1",
+      "title": "Do Market Research",
+      "status": "todo",
+      "points": 5
+    },
+    {
+      "id": "BUS-2",
+      "title": "Do Market Something",
+      "status": "todo",
+      "points": 2
+    },
+    {
+      "id": "BUS-3",
+      "title": "Do Market Research",
+      "status": "done",
+      "points": 13
+    },
+    {
+      "id": "BUS-4",
+      "title": "Do Market Research",
+      "status": "inProgress",
+      "points": 3
+    }
+  ]
+}

@@ -66,37 +66,6 @@ const TaskCard = ({ task, updateTask }) => {
     </div>
     </div>
   }
-  
-export const tasks = [
-  { 
-    title: 'Do Market Research',
-    id: 'BUS-1',
-    status:'todo',
-    priority: 'high',
-    points: 5 
-  },
-  { 
-    title: 'Do Market Something',
-    id: 'BUS-2',
-    status:'todo',
-    priority: 'low',
-    points: 2 
-  },
-  { 
-    title: 'Do Market Research',
-    id: 'BUS-3',
-    status:'done',
-    priority: 'high',
-    points: 8 
-  },
-  { 
-    title: 'Do Market Research',
-    id: 'BUS-4',
-    status:'inProgress',
-    priority: 'medium',
-    points: 3 
-  },
-  ]
 
 export const statuses = ['todo', 'inProgress', 'done']
 export const priorities = ['low', 'medium', 'high']
