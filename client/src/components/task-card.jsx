@@ -67,7 +67,7 @@ const TaskCard = ({ task, updateTask }) => {
     </div>
   }
 
-export const statuses = ['todo', 'inProgress', 'done']
+export const statuses = ['backlog', 'todo', 'inProgress', 'done']
 export const priorities = ['low', 'medium', 'high']
 
 export default TaskCard
