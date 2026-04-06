@@ -18,9 +18,9 @@ function App() {
   const inProgressTasks = tasks.filter((task) => task.status === 'inProgress')
   const doneTasks = tasks.filter((task) => task.status === 'done')
 
-  const updateTaskPoints = (task, points) => {
+  const updateTask = (task) => {
     const updatedTasks = tasks.map((t) => {
-      return t.id === task.id ? {...t, points} : t
+      return t.id === task.id ? task : t
     })
     setTasks(updatedTasks)
   }
@@ -37,7 +37,7 @@ function App() {
           {column.tasks.map((task) => (
             <TaskCard
             task={task}
-            updateTaskPoints={updateTaskPoints}
+            updateTask={updateTask}
             />
           ))}
         </div>
