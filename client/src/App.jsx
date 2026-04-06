@@ -1,138 +1,78 @@
 import { useState } from 'react'
-import useSWR from 'swr'
-import axios from 'axios'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 
-const fetcher = url => axios.get(url).then(res => res.data);
-
 function App() {
-  const [count, setCount] = useState(0);
+  const [input, setInput] = useState('')
+  const [messages, setMessages] = useState([])
 
-  // 3. Replace useEffect and fetchAPI with the useSWR hook
-  const { data, error, isLoading } = useSWR("http://localhost:8080/api", fetcher);
+  const sendMessage = () => {
+    const text = input.trim()
+    if (!text) return
 
-  // 4. Safely access the fruits array from the response
-  const fruits = data?.fruits || [];
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        text,
+        sentAt: new Date().toLocaleTimeString(),
+      },
+    ])
+    setInput('')
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault()
+    sendMessage()
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          {isLoading && <p>Loading fruits...</p>}
-          {error && <p>Failed to load data.</p>}
-        </div>
+    <main style={{ maxWidth: '640px', margin: '2rem auto', padding: '1rem' }}>
+      <h1>Simple Chat</h1>
 
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-
-        {fruits.map((fruit, index) => (
-          <div key={index}>
-            <p>{fruit}</p>
-            <br></br>
-          </div>
-        ))}
-
+      <section
+        style={{
+          border: '1px solid #ddd',
+          borderRadius: '8px',
+          minHeight: '220px',
+          padding: '1rem',
+          marginBottom: '1rem',
+          background: '#fff',
+          color: '#111',
+        }}
+      >
+        {messages.length === 0 ? (
+          <p style={{ opacity: 0.6 }}>No messages yet. Send one below.</p>
+        ) : (
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            {messages.map((message) => (
+              <li
+                key={message.id}
+                style={{
+                  padding: '0.6rem 0.8rem',
+                  marginBottom: '0.6rem',
+                  borderRadius: '6px',
+                  background: '#f3f4f6',
+                }}
+              >
+                <div>{message.text}</div>
+                <small style={{ opacity: 0.6 }}>{message.sentAt}</small>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <form onSubmit={onSubmit} style={{ display: 'flex', gap: '0.5rem' }}>
+        <input
+          type="text"
+          placeholder="Type a message..."
+          value={input}
+          onChange={(event) => setInput(event.target.value)}
+          style={{ flex: 1, padding: '0.75rem' }}
+        />
+        <button type="submit">Send</button>
+      </form>
+    </main>
   )
 }
 
