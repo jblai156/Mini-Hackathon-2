@@ -70,7 +70,7 @@ function App() {
 
   return (
     <main style={{ maxWidth: '640px', margin: '2rem auto', padding: '1rem' }}>
-      <h1>Simple Chat</h1>
+      <h1>Chat</h1>
 
       <section
         style={{
