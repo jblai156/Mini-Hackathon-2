@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 const API_BASE_URL = 'http://localhost:8080'
@@ -9,6 +9,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [isSending, setIsSending] = useState(false)
   const [error, setError] = useState('')
+  const messagesContainerRef = useRef(null)
 
   const loadMessages = async () => {
     setIsLoading(true)
@@ -32,6 +33,11 @@ function App() {
   useEffect(() => {
     loadMessages()
   }, [])
+
+  useEffect(() => {
+    if (!messagesContainerRef.current) return
+    messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
+  }, [messages, isLoading])
 
   const sendMessage = async () => {
     const text = input.trim()
@@ -73,10 +79,12 @@ function App() {
       <h1>Chat</h1>
 
       <section
+        ref={messagesContainerRef}
         style={{
           border: '1px solid #ddd',
           borderRadius: '8px',
-          minHeight: '220px',
+          height: '320px',
+          overflowY: 'auto',
           padding: '1rem',
           marginBottom: '1rem',
           background: '#fff',
