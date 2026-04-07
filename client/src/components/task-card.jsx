@@ -53,7 +53,7 @@ const TaskCard = ({ task, updateTask }) => {
     </div>
     <div className="h4 d-flex gap-4 justify-content-between py-2 text-secondary fw-normal text-secondary-emphasis">
       <div className="d-flex gap-2 align-items-center">
-        <div>{task.id}</div>
+        <div>{task.taskCode ? <div>{task.taskCode}</div> : null}</div>
         {task.priority === 'high' && highPriorityIcon}
         {task.priority === 'medium' && mediumPriorityIcon}
         {task.priority === 'low' && lowPriorityIcon}

@@ -12,7 +12,7 @@
       "title": "Design Landing Page Mockup",
       "status": "todo",
       "priority": "high",
-      "points": 8
+      "points": 3
     },
     {
       "id": "BUS-3",
@@ -33,7 +33,7 @@
       "title": "Implement Drag and Drop",
       "status": "inProgress",
       "priority": "medium",
-      "points": 8
+      "points": 3
     },
     {
       "id": "BUS-6",
@@ -47,7 +47,7 @@
       "title": "Test Real-Time Updates",
       "status": "todo",
       "priority": "high",
-      "points": 13
+      "points": 5
     },
     {
       "id": "BUS-8",
