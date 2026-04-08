@@ -182,3 +182,14 @@
     border-right-color: var(--border);
   }
 }
+
+.fc-bg-event {
+    color: #000000 !important;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.solid-background {
+    opacity: 0.1 !important;
+}
+
