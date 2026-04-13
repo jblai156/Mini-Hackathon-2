@@ -10,9 +10,10 @@ function ChatView() {
   const [error, setError] = useState('')
   const messagesContainerRef = useRef(null)
 
-  const loadMessages = async () => {
-    setIsLoading(true)
-    setError('')
+  const loadMessages = async ({ showLoader = false } = {}) => {
+    if (showLoader) {
+      setIsLoading(true)
+    }
 
     try {
       const response = await fetch(`${API_BASE_URL}/messages`)
@@ -22,15 +23,26 @@ function ChatView() {
 
       const data = await response.json()
       setMessages(data.messages || [])
+      setError('')
     } catch (loadError) {
       setError(loadError.message)
     } finally {
-      setIsLoading(false)
+      if (showLoader) {
+        setIsLoading(false)
+      }
     }
   }
 
   useEffect(() => {
-    loadMessages()
+    loadMessages({ showLoader: true })
+
+    const pollIntervalId = window.setInterval(() => {
+      loadMessages()
+    }, 2000)
+
+    return () => {
+      window.clearInterval(pollIntervalId)
+    }
   }, [])
 
   useEffect(() => {
@@ -51,7 +63,7 @@ function ChatView() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text, sender: 'me' }),
       })
 
       if (!response.ok) {
@@ -96,22 +108,35 @@ function ChatView() {
           <p style={{ opacity: 0.6 }}>No messages yet. Send one below.</p>
         ) : (
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            {messages.map((message) => (
-              <li
-                key={message.id}
-                style={{
-                  padding: '0.6rem 0.8rem',
-                  marginBottom: '0.6rem',
-                  borderRadius: '6px',
-                  background: '#f3f4f6',
-                }}
-              >
-                <div>{message.text}</div>
-                <small style={{ opacity: 0.6 }}>
-                  {new Date(message.sentAt).toLocaleTimeString()}
-                </small>
-              </li>
-            ))}
+            {messages.map((message) => {
+              const isMine = message.sender === 'me'
+
+              return (
+                <li
+                  key={message.id}
+                  style={{
+                    display: 'flex',
+                    justifyContent: isMine ? 'flex-end' : 'flex-start',
+                    marginBottom: '0.6rem',
+                  }}
+                >
+                  <div
+                    style={{
+                      padding: '0.6rem 0.8rem',
+                      borderRadius: '10px',
+                      maxWidth: '80%',
+                      background: isMine ? '#2563eb' : '#e5e7eb',
+                      color: isMine ? '#ffffff' : '#111827',
+                    }}
+                  >
+                    <div>{message.text}</div>
+                    <small style={{ opacity: isMine ? 0.85 : 0.65 }}>
+                      {new Date(message.sentAt).toLocaleTimeString()}
+                    </small>
+                  </div>
+                </li>
+              )
+            })}
           </ul>
         )}
       </section>

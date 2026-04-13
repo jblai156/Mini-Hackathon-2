@@ -23,6 +23,7 @@ app.get('/messages', (req, res) => {
 
 app.post('/messages', (req, res) => {
   const text = req.body?.text?.trim()
+  const sender = req.body?.sender === 'me' ? 'me' : 'other'
 
   if (!text) {
     return res.status(400).json({ error: 'Message text is required.' })
@@ -32,6 +33,7 @@ app.post('/messages', (req, res) => {
     id: crypto.randomUUID(),
     text,
     sentAt: new Date().toISOString(),
+    sender,
   }
 
   messages.push(message)
