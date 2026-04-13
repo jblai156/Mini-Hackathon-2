@@ -52,7 +52,7 @@ function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text, sender: 'me' }),
       })
 
       if (!response.ok) {
@@ -60,7 +60,7 @@ function App() {
       }
 
       const data = await response.json()
-      setMessages((prev) => [...prev, data.message])
+      setMessages((prev) => [...prev, { ...data.message, sender: data.message.sender || 'me' }])
       setInput('')
     } catch (sendError) {
       setError(sendError.message)
@@ -97,22 +97,25 @@ function App() {
           <p style={{ opacity: 0.6 }}>No messages yet. Send one below.</p>
         ) : (
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            {messages.map((message) => (
-              <li
-                key={message.id}
-                style={{
-                  padding: '0.6rem 0.8rem',
-                  marginBottom: '0.6rem',
-                  borderRadius: '6px',
-                  background: '#f3f4f6',
-                }}
-              >
-                <div>{message.text}</div>
-                <small style={{ opacity: 0.6 }}>
-                  {new Date(message.sentAt).toLocaleTimeString()}
-                </small>
-              </li>
-            ))}
+            {messages.map((message) => {
+              const isMine = message.sender === 'me' || message.isMine === true
+
+              return (
+                <li
+                  key={message.id}
+                  className={`message-row ${isMine ? 'message-row--mine' : 'message-row--other'}`}
+                >
+                  <div
+                    className={`message-bubble ${isMine ? 'message-bubble--mine' : 'message-bubble--other'}`}
+                  >
+                    <div>{message.text}</div>
+                    <small style={{ opacity: 0.75 }}>
+                      {new Date(message.sentAt).toLocaleTimeString()}
+                    </small>
+                  </div>
+                </li>
+              )
+            })}
           </ul>
         )}
       </section>

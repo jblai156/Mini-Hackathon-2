@@ -182,3 +182,32 @@
     border-right-color: var(--border);
   }
 }
+
+.message-row {
+  display: flex;
+  margin-bottom: 0.6rem;
+}
+
+.message-row--mine {
+  justify-content: flex-end;
+}
+
+.message-row--other {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 80%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+}
+
+.message-bubble--mine {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.message-bubble--other {
+  background: #e5e7eb;
+  color: #111827;
+}
