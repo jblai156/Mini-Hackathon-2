@@ -183,12 +183,41 @@
   }
 }
 
+
+/*CALENDAR ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/* PROJECT TITLE ON CALENDAR */
 .fc-bg-event {
     color: #000000 !important;
     font-weight: bold;
     opacity: 0.8;
 }
 
+/* BACKGROUND OPACITY OF CURRENT PROJECT */
 .solid-background {
     opacity: 0.1 !important;
+}
+
+/* BACKGROUND COLOUR OF CURRENT DAY */
+.fc-day-today {
+  background-color: rgba(0, 236, 240, 0.38) !important;
+}
+
+/* TOOLTIP */
+.tippy-tooltip {
+  box-shadow: 0 .5rem 1rem rgba(85, 161, 247, 0.507) !important;
+  background-color: rgb(62, 66, 71) !important;
+  text-align: left; 
+  font-size: 0.85rem; 
+  border: 2px solid #55a1f7;
+}
+
+/* REMOVE TIPPY TOOLTIP DEFAULT BACKGROUND */
+.tippy-box[data-theme~='no-border'] {
+  background-color: transparent;
+}
+
+/* REMOVE TIPPY TOOLTIP DEFAULT ARROW BACKGROUND */
+.tippy-box[data-theme~='no-border'] .tippy-arrow {
+  color: transparent; /* transparent */
 }

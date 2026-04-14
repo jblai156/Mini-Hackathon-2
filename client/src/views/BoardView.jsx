@@ -5,7 +5,7 @@ import TaskCard, { statuses } from '../components/task-card'
 import { collection, onSnapshot, doc, setDoc, addDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 
-function BoardView() {
+function BoardView({userId, projectId}) {
   const [tasks, setTasks] = useState([])
   const [currentlyHoveringOver, setCurrentlyHoveringOver] = useState(null)
   const [addingToColumn, setAddingToColumn] = useState(null)
@@ -20,40 +20,49 @@ function BoardView() {
   })
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, 'boards', 'board1', 'tasks'),
-      (snapshot) => {
-        const tasks = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data()
-        }))
-        setTasks(tasks)
-      }
-    )
+    if (!projectId) return; // Guard with projectId
+
+    // Shared path: projects/PROJECT_ID/tasks
+    const colRef = collection(db, 'projects', projectId, 'tasks');
+
+    const unsubscribe = onSnapshot(colRef, (snapshot) => {
+      const tasksData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }))
+      setTasks(tasksData)
+    });
 
     return () => unsubscribe()
-  }, [])
+  }, [projectId]); // Dependency is now projectId
+
 
   const updateTask = async (task) => {
-    await setDoc(doc(db, 'boards', 'board1', 'tasks', task.id), task)
+    if (!projectId) return; // Add this line
+    await setDoc(doc(db, 'projects', projectId, 'tasks', task.id), task)
   }
 
   const createTask = async (status) => {
-  if (!newTaskTitle.trim()) return
+    if (!newTaskTitle.trim() || !projectId) return
 
-  const nextNumber = tasks.length + 1
+    // Use the shared projectId prop to point to the team's collection
+    const tasksRef = collection(db, 'projects', projectId, 'tasks');
 
-  await addDoc(collection(db, 'boards', 'board1', 'tasks'), {
-    title: newTaskTitle,
-    status,
-    priority: 'medium',
-    points: 1,
-    taskCode: `TASK-${nextNumber}`
-  })
+    const nextNumber = tasks.length + 1
 
-  setNewTaskTitle('')
-  setAddingToColumn(null)
-}
+    await addDoc(tasksRef, {
+      title: newTaskTitle,
+      status,
+      priority: 'medium',
+      points: 1,
+      taskCode: `TASK-${nextNumber}`,
+      createdAt: new Date().toISOString(),
+      createdBy: userId // Keeps track of which member created it
+    })
+
+    setNewTaskTitle('')
+    setAddingToColumn(null)
+  }
 
   const handleDrop = (e, status) => {
     e.preventDefault()
